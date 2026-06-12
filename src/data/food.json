@@ -1,0 +1,9 @@
+{
+  "diet": {
+    "omnivore": 96.265,
+    "pescatarian": 6.918,
+    "vegetarian": -37.751,
+    "vegan": -65.432
+  },
+  "grocery_bill_multiplier": 0.913762
+}
