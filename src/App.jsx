@@ -33,7 +33,7 @@ function App() {
       {/* Navigation Header */}
       <header className="navbar">
         <a href="#" className="logo-container" onClick={() => setActiveTab('home')}>
-          <Leaf className="logo-icon" size={26} />
+          <Leaf className="logo-icon" size={26} aria-hidden="true" />
           <span>Carbon<span style={{ color: 'var(--accent-mint)' }}>Aware</span></span>
         </a>
         
@@ -45,14 +45,14 @@ function App() {
           >
             Home
           </button>
-          <button
+            <button
             onClick={() => handleTabClick('calculator')}
             className={`nav-link ${activeTab === 'calculator' ? 'active' : ''}`}
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            <PlusCircle size={16} /> Calculator
+            <PlusCircle size={16} aria-hidden="true" /> Calculator
           </button>
-          <button
+            <button
             onClick={() => handleTabClick('dashboard')}
             className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''} ${!result ? 'nav-disabled' : ''}`}
             style={{
@@ -62,9 +62,9 @@ function App() {
               opacity: result ? 1 : 0.5
             }}
           >
-            <BarChart2 size={16} /> Dashboard
+            <BarChart2 size={16} aria-hidden="true" /> Dashboard
           </button>
-          <button
+            <button
             onClick={() => handleTabClick('insights')}
             className={`nav-link ${activeTab === 'insights' ? 'active' : ''} ${!result ? 'nav-disabled' : ''}`}
             style={{
@@ -74,7 +74,7 @@ function App() {
               opacity: result ? 1 : 0.5
             }}
           >
-            <MessageSquare size={16} /> AI Coach
+            <MessageSquare size={16} aria-hidden="true" /> AI Coach
           </button>
         </nav>
       </header>
@@ -120,8 +120,8 @@ function App() {
               
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                 <button className="glow-btn" onClick={() => setActiveTab('calculator')}>
-                  Start Assessment <ArrowRightIcon size={18} />
-                </button>
+                        Start Assessment <ArrowRightIcon size={18} />
+                      </button>
                 {result && (
                   <button className="glow-btn-secondary" onClick={() => setActiveTab('dashboard')}>
                     View Results
@@ -134,7 +134,7 @@ function App() {
             <div className="grid-cols-3" style={{ maxWidth: '1100px', margin: '0 auto', gap: '2rem' }}>
               <div className="glass-card" style={{ textAlign: 'left' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--accent-mint)', display: 'flex', alignItems: 'center', justifySelf: 'start', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                  <PlusCircle size={20} />
+                  <PlusCircle size={20} aria-hidden="true" />
                 </div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.5rem' }}>1. Step-by-Step Calculator</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5' }}>
@@ -144,7 +144,7 @@ function App() {
 
               <div className="glass-card" style={{ textAlign: 'left' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(96, 165, 250, 0.1)', color: '#60a5fa', display: 'flex', alignItems: 'center', justifySelf: 'start', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                  <BarChart2 size={20} />
+                  <BarChart2 size={20} aria-hidden="true" />
                 </div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.5rem' }}>2. Analytics Dashboard</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5' }}>
@@ -154,7 +154,7 @@ function App() {
 
               <div className="glass-card" style={{ textAlign: 'left' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(167, 139, 250, 0.1)', color: '#a78bfa', display: 'flex', alignItems: 'center', justifySelf: 'start', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                  <MessageSquare size={20} />
+                  <MessageSquare size={20} aria-hidden="true" />
                 </div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.5rem' }}>3. AI Carbon Coach</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5' }}>

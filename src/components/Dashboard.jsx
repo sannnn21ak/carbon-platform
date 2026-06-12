@@ -69,7 +69,7 @@ const Dashboard = ({ result, onReset }) => {
         gap: '1.5rem'
       }}>
         <div>
-          <span className="badge badge-success" style={{ marginBottom: '0.5rem' }}><Calendar size={12} style={{ marginRight: '4px' }} /> ANNUAL REPORT</span>
+          <span className="badge badge-success" style={{ marginBottom: '0.5rem' }}><Calendar size={12} aria-hidden="true" style={{ marginRight: '4px' }} /> ANNUAL REPORT</span>
           <h2 style={{ fontSize: '2rem', fontWeight: '800', margin: '0.25rem 0' }}>Your Annual Footprint</h2>
           <p style={{ color: 'var(--text-secondary)' }}>Based on your detailed profile and lifestyle inputs</p>
         </div>
@@ -91,7 +91,7 @@ const Dashboard = ({ result, onReset }) => {
             maxWidth: '220px'
           }}>
             <div style={{ fontWeight: '700', color: badgeColor, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Leaf size={16} /> {badgeName}
+              <Leaf size={16} aria-hidden="true" /> {badgeName}
             </div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
               {badgeDescription}
@@ -105,7 +105,7 @@ const Dashboard = ({ result, onReset }) => {
         {/* Left Side: Category breakdown list */}
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: '700', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Leaf size={18} className="text-emerald" /> Breakdown by Category
+            <Leaf size={18} className="text-emerald" aria-hidden="true" /> Breakdown by Category
           </h3>
           
           {/* Custom SVG Donut Chart */}
@@ -174,7 +174,7 @@ const Dashboard = ({ result, onReset }) => {
           {/* Global Comparison Chart */}
           <div className="glass-card">
             <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Globe size={18} className="text-emerald" /> Global Benchmark Comparison
+              <Globe size={18} className="text-emerald" aria-hidden="true" /> Global Benchmark Comparison
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
               How does your personal footprint compare to the annual per capita emissions of different countries?
@@ -223,8 +223,8 @@ const Dashboard = ({ result, onReset }) => {
           {/* Equivalency metrics */}
           <div className="grid-cols-3">
             <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--accent-mint)' }}>
-                <TreePine size={24} />
+                <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--accent-mint)' }}>
+                <TreePine size={24} aria-hidden="true" />
               </div>
               <div style={{ fontSize: '1.5rem', fontWeight: '800' }}>{treesNeeded}</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '600' }}>Trees to Plant</div>
@@ -232,8 +232,8 @@ const Dashboard = ({ result, onReset }) => {
             </div>
 
             <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(96, 165, 250, 0.1)', color: '#60a5fa' }}>
-                <Plane size={24} />
+                <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(96, 165, 250, 0.1)', color: '#60a5fa' }}>
+                <Plane size={24} aria-hidden="true" />
               </div>
               <div style={{ fontSize: '1.5rem', fontWeight: '800' }}>{nycToLondonFlights}</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '600' }}>NY to London Flights</div>
@@ -241,8 +241,8 @@ const Dashboard = ({ result, onReset }) => {
             </div>
 
             <div className="glass-card" style={{ padding: '1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' }}>
-                <Car size={24} />
+                <div style={{ padding: '0.75rem', borderRadius: '50%', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' }}>
+                <Car size={24} aria-hidden="true" />
               </div>
               <div style={{ fontSize: '1.5rem', fontWeight: '800' }}>{carKmEquivalent.toLocaleString()}</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: '600' }}>Petrol Km Driven</div>
@@ -268,7 +268,7 @@ const Dashboard = ({ result, onReset }) => {
               className="glow-btn-secondary"
               style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
             >
-              Re-calculate <ArrowRight size={14} />
+              Re-calculate <ArrowRight size={14} aria-hidden="true" />
             </button>
           </div>
 

@@ -216,7 +216,7 @@ const AIInsights = ({ result }) => {
       <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.75rem' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <CheckSquare size={18} className="text-emerald" /> Action Planner
+            <CheckSquare size={18} className="text-emerald" aria-hidden="true" /> Action Planner
           </h3>
           <span className="badge badge-success">{actionItems.length} Suggestions</span>
         </div>
@@ -258,8 +258,10 @@ const AIInsights = ({ result }) => {
           {actionItems.map((item) => {
             const isSelected = selectedActions.includes(item.id);
             return (
-              <div
+              <button
                 key={item.id}
+                type="button"
+                aria-pressed={isSelected}
                 onClick={() => toggleAction(item.id)}
                 style={{
                   background: isSelected ? 'rgba(52, 211, 153, 0.06)' : 'rgba(255, 255, 255, 0.01)',
@@ -271,7 +273,8 @@ const AIInsights = ({ result }) => {
                   transition: 'all 0.2s',
                   display: 'flex',
                   gap: '0.75rem',
-                  alignItems: 'flex-start'
+                  alignItems: 'flex-start',
+                  textAlign: 'left'
                 }}
               >
                 <div style={{ color: isSelected ? 'var(--accent-mint)' : 'var(--text-muted)', marginTop: '2px' }}>
@@ -289,7 +292,7 @@ const AIInsights = ({ result }) => {
                     {item.tip}
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -298,7 +301,7 @@ const AIInsights = ({ result }) => {
       {/* Right panel: Chatbot */}
       <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '540px', padding: '1.5rem 1.5rem 1rem 1.5rem' }}>
         <h3 style={{ fontSize: '1.2rem', fontWeight: '700', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <Sparkles size={18} className="text-emerald" /> AI Carbon Coach
+          <Sparkles size={18} className="text-emerald" aria-hidden="true" /> AI Carbon Coach
         </h3>
 
         {/* Chat log */}
@@ -375,8 +378,11 @@ const AIInsights = ({ result }) => {
 
         {/* Input box */}
         <form onSubmit={handleSendMessage} style={{ display: 'flex', gap: '0.5rem' }}>
+          <label htmlFor="ai_input" className="sr-only">Ask Sparky about your carbon impact</label>
           <input
+            id="ai_input"
             type="text"
+            aria-label="Ask Sparky about your carbon impact"
             className="form-input"
             style={{ flex: 1, background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--radius-md)' }}
             placeholder="Ask a question about your carbon impact..."
@@ -386,11 +392,12 @@ const AIInsights = ({ result }) => {
           />
           <button
             type="submit"
+            aria-label="Send message"
             className="glow-btn"
             style={{ padding: '0 1.25rem', borderRadius: 'var(--radius-md)' }}
             disabled={isTyping || !inputMessage.trim()}
           >
-            <Send size={18} />
+            <Send size={18} aria-hidden="true" />
           </button>
         </form>
       </div>

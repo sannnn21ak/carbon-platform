@@ -171,18 +171,20 @@ const Calculator = ({ onCalculate }) => {
       <div style={{ minHeight: '350px' }}>
         {step === 1 && (
           <div className="animate-fade-in">
-            <h3 className="card-title"><User size={24} className="logo-icon" /> Personal Profile</h3>
+            <h3 className="card-title"><User size={24} className="logo-icon" aria-hidden="true" /> Personal Profile</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
               Let's start with basic background. These demographic factors influence overall household sharing, baseline metabolism, and consumption habits in the database.
             </p>
 
             <div className="form-group">
-              <label className="form-label">Body Type / Physical Size</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+              <label id="body_type_label" className="form-label">Body Type / Physical Size</label>
+              <div role="radiogroup" aria-labelledby="body_type_label" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
                 {['underweight', 'normal', 'overweight', 'obese'].map((type) => (
                   <button
                     key={type}
                     type="button"
+                    role="radio"
+                    aria-checked={inputs.body_type === type}
                     onClick={() => updateInput('body_type', type)}
                     style={{
                       padding: '0.75rem',
@@ -208,33 +210,36 @@ const Calculator = ({ onCalculate }) => {
                 <label className="form-label">Biological Sex</label>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                   {['female', 'male'].map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => updateInput('sex', s)}
-                      style={{
-                        flex: 1,
-                        padding: '0.75rem',
-                        borderRadius: 'var(--radius-sm)',
-                        border: '1px solid',
-                        borderColor: inputs.sex === s ? 'var(--accent-mint)' : 'var(--border-color)',
-                        background: inputs.sex === s ? 'rgba(52, 211, 153, 0.15)' : 'var(--bg-primary)',
-                        color: inputs.sex === s ? '#fff' : 'var(--text-secondary)',
-                        cursor: 'pointer',
-                        textTransform: 'capitalize',
-                        fontWeight: '600',
-                        transition: 'all 0.2s'
-                      }}
-                    >
-                      {s}
-                    </button>
-                  ))}
+                      <button
+                        key={s}
+                        type="button"
+                        role="radio"
+                        aria-checked={inputs.sex === s}
+                        onClick={() => updateInput('sex', s)}
+                        style={{
+                          flex: 1,
+                          padding: '0.75rem',
+                          borderRadius: 'var(--radius-sm)',
+                          border: '1px solid',
+                          borderColor: inputs.sex === s ? 'var(--accent-mint)' : 'var(--border-color)',
+                          background: inputs.sex === s ? 'rgba(52, 211, 153, 0.15)' : 'var(--bg-primary)',
+                          color: inputs.sex === s ? '#fff' : 'var(--text-secondary)',
+                          cursor: 'pointer',
+                          textTransform: 'capitalize',
+                          fontWeight: '600',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        {s}
+                      </button>
+                    ))}
                 </div>
               </div>
 
               <div className="form-group">
-                <label className="form-label">Social Activity Frequency</label>
+                <label htmlFor="social_activity" className="form-label">Social Activity Frequency</label>
                 <select
+                  id="social_activity"
                   className="form-select"
                   value={inputs.social_activity}
                   onChange={(e) => updateInput('social_activity', e.target.value)}
@@ -247,9 +252,10 @@ const Calculator = ({ onCalculate }) => {
             </div>
 
             <div className="form-group" style={{ marginTop: '1rem' }}>
-              <label className="form-label">New Clothes Purchased Monthly: <span style={{ color: 'var(--accent-mint)' }}>{inputs.new_clothes} items</span></label>
+              <label htmlFor="new_clothes" className="form-label">New Clothes Purchased Monthly: <span style={{ color: 'var(--accent-mint)' }}>{inputs.new_clothes} items</span></label>
               <div className="slider-container">
                 <input
+                  id="new_clothes"
                   type="range"
                   min="0"
                   max="20"
@@ -264,14 +270,14 @@ const Calculator = ({ onCalculate }) => {
 
         {step === 2 && (
           <div className="animate-fade-in">
-            <h3 className="card-title"><Car size={24} className="logo-icon" /> Travel & Transportation</h3>
+            <h3 className="card-title"><Car size={24} className="logo-icon" aria-hidden="true" /> Travel & Transportation</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
               Transportation is one of the largest segments of an individual's carbon footprint. Let's look at your commuting and flying habits.
             </p>
 
             <div className="form-group">
-              <label className="form-label">Primary Mode of Commuting</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+              <label id="transport_label" className="form-label">Primary Mode of Commuting</label>
+              <div role="radiogroup" aria-labelledby="transport_label" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
                 {[
                   { id: 'walk_bicycle', label: 'Walk / Bicycle' },
                   { id: 'public', label: 'Public Transit' },
@@ -280,6 +286,8 @@ const Calculator = ({ onCalculate }) => {
                   <button
                     key={mode.id}
                     type="button"
+                    role="radio"
+                    aria-checked={inputs.transport === mode.id}
                     onClick={() => updateInput('transport', mode.id)}
                     style={{
                       padding: '0.75rem',
@@ -302,8 +310,9 @@ const Calculator = ({ onCalculate }) => {
             {inputs.transport === 'private' && (
               <div className="grid-cols-2 animate-fade-in">
                 <div className="form-group">
-                  <label className="form-label">Fuel / Engine Type</label>
+                  <label htmlFor="vehicle_type" className="form-label">Fuel / Engine Type</label>
                   <select
+                    id="vehicle_type"
                     className="form-select"
                     value={inputs.vehicle_type}
                     onChange={(e) => updateInput('vehicle_type', e.target.value)}
@@ -317,9 +326,10 @@ const Calculator = ({ onCalculate }) => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Monthly Distance: <span style={{ color: 'var(--accent-mint)' }}>{inputs.vehicle_distance} km</span></label>
+                  <label htmlFor="vehicle_distance" className="form-label">Monthly Distance: <span style={{ color: 'var(--accent-mint)' }}>{inputs.vehicle_distance} km</span></label>
                   <div className="slider-container">
                     <input
+                      id="vehicle_distance"
                       type="range"
                       min="0"
                       max="5000"
@@ -334,12 +344,14 @@ const Calculator = ({ onCalculate }) => {
             )}
 
             <div className="form-group" style={{ marginTop: '1rem' }}>
-              <label className="form-label">Air Travel Frequency (Flights per Year)</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+              <label id="air_travel_label" className="form-label">Air Travel Frequency (Flights per Year)</label>
+              <div role="radiogroup" aria-labelledby="air_travel_label" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
                 {['never', 'rarely', 'frequently', 'very frequently'].map((freq) => (
                   <button
                     key={freq}
                     type="button"
+                    role="radio"
+                    aria-checked={inputs.air_travel_frequency === freq}
                     onClick={() => updateInput('air_travel_frequency', freq)}
                     style={{
                       padding: '0.75rem',
@@ -364,14 +376,14 @@ const Calculator = ({ onCalculate }) => {
 
         {step === 3 && (
           <div className="animate-fade-in">
-            <h3 className="card-title"><Utensils size={24} className="logo-icon" /> Diet & Grocery</h3>
+            <h3 className="card-title"><Utensils size={24} className="logo-icon" aria-hidden="true" /> Diet & Grocery</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
               Food choices have huge carbon variations. Meat production generally accounts for much higher emissions compared to plant-based items.
             </p>
 
             <div className="form-group">
-              <label className="form-label">Eating Habit / Diet Type</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+              <label id="diet_label" className="form-label">Eating Habit / Diet Type</label>
+              <div role="radiogroup" aria-labelledby="diet_label" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
                 {[
                   { id: 'vegan', label: 'Vegan' },
                   { id: 'vegetarian', label: 'Vegetarian' },
@@ -381,6 +393,8 @@ const Calculator = ({ onCalculate }) => {
                   <button
                     key={dietOption.id}
                     type="button"
+                    role="radio"
+                    aria-checked={inputs.diet === dietOption.id}
                     onClick={() => updateInput('diet', dietOption.id)}
                     style={{
                       padding: '0.75rem',
@@ -401,9 +415,10 @@ const Calculator = ({ onCalculate }) => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Monthly Grocery Bill: <span style={{ color: 'var(--accent-mint)' }}>${inputs.grocery_bill}</span></label>
+              <label htmlFor="grocery_bill" className="form-label">Monthly Grocery Bill: <span style={{ color: 'var(--accent-mint)' }}>${inputs.grocery_bill}</span></label>
               <div className="slider-container">
                 <input
+                  id="grocery_bill"
                   type="range"
                   min="30"
                   max="400"
@@ -424,6 +439,7 @@ const Calculator = ({ onCalculate }) => {
                     <button
                       key={app}
                       type="button"
+                      aria-pressed={isChecked}
                       onClick={() => handleToggleArray('cooking_appliances', app)}
                       style={{
                         padding: '0.65rem 0.25rem',
@@ -449,15 +465,16 @@ const Calculator = ({ onCalculate }) => {
 
         {step === 4 && (
           <div className="animate-fade-in">
-            <h3 className="card-title"><Zap size={24} className="logo-icon" /> Home Energy & Waste</h3>
+            <h3 className="card-title"><Zap size={24} className="logo-icon" aria-hidden="true" /> Home Energy & Waste</h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
               Your home's heating energy, appliances, and waste disposal have direct environmental impact.
             </p>
 
             <div className="grid-cols-2">
-              <div className="form-group">
-                <label className="form-label">Heating Energy Source</label>
+                <div className="form-group">
+                <label htmlFor="heating_energy" className="form-label">Heating Energy Source</label>
                 <select
+                  id="heating_energy"
                   className="form-select"
                   value={inputs.heating_energy}
                   onChange={(e) => updateInput('heating_energy', e.target.value)}
@@ -469,9 +486,10 @@ const Calculator = ({ onCalculate }) => {
                 </select>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Energy Efficiency Devices?</label>
+                <div className="form-group">
+                <label htmlFor="energy_efficiency" className="form-label">Energy Efficiency Devices?</label>
                 <select
+                  id="energy_efficiency"
                   className="form-select"
                   value={inputs.energy_efficiency}
                   onChange={(e) => updateInput('energy_efficiency', e.target.value)}
@@ -485,8 +503,9 @@ const Calculator = ({ onCalculate }) => {
 
             <div className="grid-cols-3" style={{ gap: '1rem' }}>
               <div className="form-group">
-                <label className="form-label">Showering Frequency</label>
+                <label htmlFor="shower_frequency" className="form-label">Showering Frequency</label>
                 <select
+                  id="shower_frequency"
                   className="form-select"
                   value={inputs.shower_frequency}
                   onChange={(e) => updateInput('shower_frequency', e.target.value)}
@@ -500,9 +519,10 @@ const Calculator = ({ onCalculate }) => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Weekly Waste Bags: <span style={{ color: 'var(--accent-mint)' }}>{inputs.waste_bag_count}</span></label>
+                <label htmlFor="waste_bag_count" className="form-label">Weekly Waste Bags: <span style={{ color: 'var(--accent-mint)' }}>{inputs.waste_bag_count}</span></label>
                 <div className="slider-container" style={{ paddingTop: '0.45rem' }}>
                   <input
+                    id="waste_bag_count"
                     type="range"
                     min="0"
                     max="10"
@@ -514,8 +534,9 @@ const Calculator = ({ onCalculate }) => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Waste Bag Size</label>
+                <label htmlFor="waste_bag_size" className="form-label">Waste Bag Size</label>
                 <select
+                  id="waste_bag_size"
                   className="form-select"
                   value={inputs.waste_bag_size}
                   onChange={(e) => updateInput('waste_bag_size', e.target.value)}
@@ -530,14 +551,15 @@ const Calculator = ({ onCalculate }) => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Recycled Materials (Select all you actively sort)</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
+              <label id="recycling_label" className="form-label">Recycled Materials (Select all you actively sort)</label>
+              <div role="group" aria-labelledby="recycling_label" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
                 {['Paper', 'Plastic', 'Glass', 'Metal'].map((mat) => {
                   const isChecked = inputs.recycling.includes(mat);
                   return (
                     <button
                       key={mat}
                       type="button"
+                      aria-pressed={isChecked}
                       onClick={() => handleToggleArray('recycling', mat)}
                       style={{
                         padding: '0.5rem',
@@ -561,8 +583,9 @@ const Calculator = ({ onCalculate }) => {
 
             <div className="grid-cols-2">
               <div className="form-group">
-                <label className="form-label">Daily TV / PC: <span style={{ color: 'var(--accent-mint)' }}>{inputs.tv_pc_hours} hrs</span></label>
+                <label htmlFor="tv_pc_hours" className="form-label">Daily TV / PC: <span style={{ color: 'var(--accent-mint)' }}>{inputs.tv_pc_hours} hrs</span></label>
                 <input
+                  id="tv_pc_hours"
                   type="range"
                   min="0"
                   max="24"
@@ -573,8 +596,9 @@ const Calculator = ({ onCalculate }) => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Daily Internet: <span style={{ color: 'var(--accent-mint)' }}>{inputs.internet_hours} hrs</span></label>
+                <label htmlFor="internet_hours" className="form-label">Daily Internet: <span style={{ color: 'var(--accent-mint)' }}>{inputs.internet_hours} hrs</span></label>
                 <input
+                  id="internet_hours"
                   type="range"
                   min="0"
                   max="24"
@@ -592,7 +616,7 @@ const Calculator = ({ onCalculate }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2.5rem' }}>
         {step > 1 ? (
           <button type="button" className="glow-btn-secondary" onClick={prevStep}>
-            <ChevronLeft size={18} /> Back
+            <ChevronLeft size={18} aria-hidden="true" /> Back
           </button>
         ) : (
           <div />
@@ -601,11 +625,11 @@ const Calculator = ({ onCalculate }) => {
         <button type="button" className="glow-btn" onClick={nextStep}>
           {step === 4 ? (
             <>
-              Calculate Footprint <Award size={18} />
+              Calculate Footprint <Award size={18} aria-hidden="true" />
             </>
           ) : (
             <>
-              Next Step <ChevronRight size={18} />
+              Next Step <ChevronRight size={18} aria-hidden="true" />
             </>
           )}
         </button>
