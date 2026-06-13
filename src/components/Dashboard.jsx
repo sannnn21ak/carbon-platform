@@ -1,9 +1,8 @@
-import React from 'react';
-import { Leaf, Plane, Car, Globe, Calendar, TreePine, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Leaf, Plane, Car, Globe, Calendar, TreePine, ArrowRight } from 'lucide-react';
 import countryAverages from '../data/country_averages.json';
 
 const Dashboard = ({ result, onReset }) => {
-  const { total, breakdown, inputs } = result;
+  const { total, breakdown } = result;
 
   // Equivalencies
   const treesNeeded = Math.round(total / 22); // 1 tree absorbs ~22kg CO2/year
@@ -19,28 +18,21 @@ const Dashboard = ({ result, onReset }) => {
     { name: 'Other (Profile & Shopping)', value: breakdown.other, color: '#a78bfa', icon: <Leaf size={18} /> }
   ];
 
-  // Sorting categories by footprint
-  const sortedCategories = [...categories].sort((a, b) => b.value - a.value);
-
   // Badge classification
   let badgeName = 'Moderate Consumer';
-  let badgeClass = 'badge-moderate';
   let badgeColor = '#f59e0b';
   let badgeDescription = 'Your footprint is around the global average. There is solid room for improvement.';
 
   if (total < 1200) {
     badgeName = 'Eco-Guardian (Elite)';
-    badgeClass = 'badge-elite';
     badgeColor = '#10b981';
     badgeDescription = 'Outstanding! Your footprint is extremely low. You are living sustainably.';
   } else if (total < 2500) {
     badgeName = 'Carbon Conscious';
-    badgeClass = 'badge-conscious';
     badgeColor = '#34d399';
     badgeDescription = 'Well done! You are keeping your footprint below average through positive habits.';
   } else if (total > 5000) {
     badgeName = 'High Impact';
-    badgeClass = 'badge-high';
     badgeColor = '#ef4444';
     badgeDescription = 'Warning: Your footprint is quite high. Look at the transport and energy suggestions to reduce it.';
   }

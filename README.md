@@ -1,117 +1,142 @@
 # 🌿 CarbonAware – Personal Carbon Footprint Coach
 
-A climate-tech vertical app that helps individuals understand and reduce their personal carbon footprint through lifestyle inputs, visual analytics, and AI-powered guidance.
+A climate-tech application that helps individuals understand and reduce their personal carbon footprint through lifestyle inputs, visual analytics, and AI-powered guidance.
 
 ---
 
-## Chosen Vertical
+## Problem Statement
 
-**Climate Tech / Personal Sustainability**
-
-This app targets the sustainability vertical by helping an individual understand how daily behaviors like transport, diet, energy use, and waste contribute to personal greenhouse gas emissions.
+Individuals often lack a clear, actionable way to estimate their annual carbon emissions from daily decisions like commuting, diet, energy use, and waste habits. This project solves that gap by providing a lightweight personal carbon footprint calculator with category-level insights, improvement suggestions, and an AI coach that offers tailored advice.
 
 ---
 
-## Approach and Logic
+## Features
 
-The solution was built with three main layers:
-
-1. **Personal footprint calculation**
-   - Collects user inputs across transport, diet, heating, energy efficiency, groceries, and recycling.
-   - Uses simplified emission factors and rules to estimate annual CO₂e.
-   - Breaks the result into category contributions so the user can see the biggest impact areas.
-
-2. **Visualization and action planning**
-   - Shows the footprint with charts, equivalency cards, and benchmark comparisons.
-   - Provides a set of recommended actions and live projected savings when actions are selected.
-
-3. **AI coaching**
-   - Uses a secure backend proxy to call Hugging Face inference.
-   - Sends the user profile and prompt to the model to generate tailored, friendly carbon reduction advice.
-   - Includes a local fallback if the external AI is unavailable.
+- Interactive 4-step carbon footprint calculator covering transport, diet, home energy, and waste
+- Category breakdown and total annual CO₂e output
+- Visual benchmarks comparing the user’s footprint to country averages
+- Equivalency cards for trees planted, flights, and car travel
+- Personalized action planner with projected savings
+- AI-powered carbon coach backed by Hugging Face inference
+- Secure backend proxy to keep API keys hidden from the client
+- Local fallback response when AI inference is unavailable
 
 ---
 
-## How the Solution Works
+## Architecture
 
-### User flow
+This project is built as a hybrid frontend/backend application:
 
-1. The user completes the 4-step calculator in `Calculator.jsx`.
-2. The app computes the total footprint and breakdown in `App.jsx`.
-3. `Dashboard.jsx` displays charts, benchmarks, and equivalency metrics.
-4. The user asks a question in `AIInsights.jsx`.
-5. The frontend posts the chat request to `/api/hf-chat`.
-6. `server.js` forwards the request to Hugging Face using the secret `HF_API_KEY`.
-7. The AI response is returned and displayed in the chat interface.
+- `src/App.jsx` manages application state, navigation, and result rendering
+- `src/components/Calculator.jsx` collects user inputs and calculates emissions
+- `src/components/Dashboard.jsx` presents charts, benchmarks, and equivalencies
+- `src/components/AIInsights.jsx` handles AI chat and action recommendations
+- `server.js` acts as a secure proxy for Hugging Face inference
+- JSON data files in `src/data/` provide emission factors and benchmark values
 
-### Architecture
-
-- **Frontend:** React + Vite
-- **Backend proxy:** Express server in `server.js`
-- **AI inference:** Hugging Face via secure backend call
-- **Data:** JSON files in `src/data/`
-- **Env settings:** `.env` stores `HF_API_KEY` and `VITE_HF_MODEL`
-
-### Secure API flow
-
-- The frontend does not expose the Hugging Face token.
-- The client sends only the prompt and model name to the backend.
-- The backend injects `HF_API_KEY` and calls the Hugging Face inference endpoint.
+The frontend communicates with the Express backend over `/api/hf-chat`, and the backend forwards requests to Hugging Face using the secret token stored in `.env`.
 
 ---
 
-## Assumptions Made
+## Tech Stack
 
-- Footprint estimates are based on simplified emission factors rather than full life-cycle analysis.
-- Transport emissions use vehicle type, fuel type, and monthly distance as proxies.
-- Diet emissions are modeled using broad diet categories.
-- Energy footprint is based on a primary heating source plus an efficiency flag.
-- Waste savings are approximated from recycling and composting behavior.
-- The Hugging Face token should have `Read` permission for inference.
-- Network or DNS restrictions may block the AI feature even if the app code is correct.
+- React 19
+- Vite
+- Express
+- ESLint
+- Vitest
+- Hugging Face inference API
+- Lucide React icons
 
 ---
 
-## Running the Project
+## SHAP Explainability
 
-### 1. Install dependencies
+While SHAP is not currently implemented in this repository, the application follows an explainable design pattern by:
+
+- Breaking total emissions into interpretable categories: transport, food, energy, waste, and other
+- Displaying the relative footprint contribution of each category
+- Providing explicit action items with estimated annual savings
+- Allowing users to understand which lifestyle changes affect the final score most
+
+A future implementation could add SHAP values or feature importances to explain model-driven predictions in the AI insights layer.
+
+---
+
+## AI Insights
+
+The AI insights feature provides conversational guidance tailored to the user profile. It:
+
+- Sends a contextual prompt containing the user’s footprint, breakdown, and lifestyle inputs
+- Requests an emoji-rich, practical response from the Hugging Face model
+- Displays the AI answer in a chat-style interface
+- Uses a local fallback strategy if the external call fails
+
+This enables users to receive personalized carbon reduction advice in plain language.
+
+---
+
+## Installation
+
+1. Install dependencies
 
 ```bash
 cd "d:/carbon platform/carbon-platform"
 npm install
 ```
 
-### 2. Configure environment variables
-
-Create `.env` with:
+2. Create a `.env` file with:
 
 ```env
 HF_API_KEY=your_huggingface_token_here
 VITE_HF_MODEL=gpt2
 ```
 
-### 3. Start the backend proxy
+3. Start the backend proxy
 
 ```bash
 npm run server
 ```
 
-### 4. Start the frontend
+4. Start the frontend
 
 ```bash
 npm run dev
 ```
 
-### 5. Open the app
-
-Visit `http://localhost:5173`
+5. Open the app at `http://localhost:5173`
 
 ---
 
-## Notes
+## Future Scope
 
-- The UI can still operate if the AI model is unreachable because a local rule-based fallback is provided in `AIInsights.jsx`.
-- For the AI chat to work, the machine must be able to access `api-inference.huggingface.co`.
+- Add SHAP-based explainability for AI-driven recommendations
+- Integrate real emission factor datasets from public climate sources
+- Add user authentication and saved profiles
+- Provide personalized reduction plans across weeks/months
+- Add offline mode or PWA support
+- Add charts for historical footprint tracking
+- Add screenshot export or report generation
+
+---
+
+## Screenshots
+
+> Add screenshots here once available.
+
+The following sections are useful for judges and reviewers:
+
+- Home / calculator view
+- Dashboard with category breakdown and equivalencies
+- AI insights chat panel
+
+If you add images, reference them like:
+
+```md
+![Calculator view](screenshots/calculator.png)
+![Dashboard view](screenshots/dashboard.png)
+![AI chat view](screenshots/ai-insights.png)
+```
 
 ---
 

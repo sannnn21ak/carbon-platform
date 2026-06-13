@@ -1,6 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Node
 node_modules/
 dist/
 dist-ssr/
+
+# Environment variables
 .env
 .env.*
+
+# Logs
+*.log
+
 *.local

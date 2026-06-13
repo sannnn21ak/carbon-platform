@@ -48,7 +48,7 @@ app.post('/api/hf-chat', async (req, res) => {
 
     try {
       data = raw ? JSON.parse(raw) : null;
-    } catch (parseError) {
+    } catch {
       data = raw;
     }
 

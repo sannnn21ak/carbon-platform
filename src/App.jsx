@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Leaf, BarChart2, MessageSquare, PlusCircle, CheckCircle, HelpCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Leaf, BarChart2, MessageSquare, PlusCircle, HelpCircle } from 'lucide-react';
 import Calculator from './components/Calculator';
 import Dashboard from './components/Dashboard';
 import AIInsights from './components/AIInsights';

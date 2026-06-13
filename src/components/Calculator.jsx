@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { User, Car, Utensils, Zap, ChevronRight, ChevronLeft, Award } from 'lucide-react';
 import transportData from '../data/transport.json';
 import foodData from '../data/food.json';

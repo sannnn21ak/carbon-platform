@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Sparkles, Send, Bot, User, CheckSquare } from 'lucide-react';
 
 const AIInsights = ({ result }) => {
@@ -6,7 +6,6 @@ const AIInsights = ({ result }) => {
 
   // State for Interactive planner
   const [selectedActions, setSelectedActions] = useState([]);
-  const [plannerOpen, setPlannerOpen] = useState(true);
 
   // State for Chatbot
   const [messages, setMessages] = useState([
